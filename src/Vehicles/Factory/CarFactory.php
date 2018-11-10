@@ -7,7 +7,7 @@ use TestGame\Vehicles\Entity\Car;
 use TestGame\Vehicles\Entity\CarInterface;
 use TestGame\Vehicles\Exceptions\FactoryException;
 
-class CarFactory
+class CarFactory implements CarFactoryInterface
 {
     const BMW = 'bmw';
     const SMART = 'smart';
