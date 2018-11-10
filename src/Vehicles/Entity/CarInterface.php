@@ -3,7 +3,7 @@
 namespace TestGame\Vehicles\Entity;
 
 
-interface CarInterface
+interface CarInterface extends AbstractEntityInterface
 {
 
 }
