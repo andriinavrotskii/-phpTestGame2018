@@ -3,28 +3,29 @@
 namespace TestGame\Application;
 
 
-use TestGame\Vehicles\Factory\CarFactoryInterface;
-use TestGame\Vehicles\Repository\CarRepositoryInterface;
+use TestGame\Vehicles\Service\CarServiceInterface;
 
 class VehiclesService
 {
-    /** @var CarFactoryInterface */
-    private $carFactory;
+    /** @var CarServiceInterface  */
+    private $carService;
 
-    /** @var CarRepositoryInterface */
-    private $carRepository;
-
-    public function __construct(CarFactoryInterface $carFactory, CarRepositoryInterface $carRepository)
+    /**
+     * VehiclesService constructor.
+     * @param CarServiceInterface $carService
+     */
+    public function __construct(CarServiceInterface $carService)
     {
-        $this->carFactory = $carFactory;
-        $this->carRepository = $carRepository;
+        $this->carService = $carService;
     }
 
+    /**
+     * @param $name
+     * @return \TestGame\Vehicles\Entity\CarInterface
+     * @throws \Exception
+     */
     public function newCar($name)
     {
-        $car = $this->carFactory->create($name);
-        $this->carRepository->persist($car);
-
-        return $car;
+        return $this->carService->newCar($name);
     }
 }
