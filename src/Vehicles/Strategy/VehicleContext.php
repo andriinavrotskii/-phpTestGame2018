@@ -4,6 +4,7 @@ namespace TestGame\Vehicles\Strategy;
 
 
 use DI\Container;
+use TestGame\Infrastructure\Adapters\DiContainer;
 use TestGame\Vehicles\Exception\VehicleException;
 
 class VehicleContext
@@ -18,7 +19,7 @@ class VehicleContext
      * VehicleContext constructor.
      * @param Container $container
      */
-    public function __construct(Container $container)
+    public function __construct(DiContainer $container)
     {
         $this->container = $container;
     }
