@@ -4,42 +4,77 @@ namespace TestGame\Application;
 
 
 use TestGame\Vehicles\Service\CarServiceInterface;
+use TestGame\Vehicles\Strategy\VehicleContext;
 
 class VehiclesService
 {
-    /** @var CarServiceInterface  */
-    private $carService;
+    /** @var VehicleContext */
+    private $vehicleContext;
 
-    /**
-     * VehiclesService constructor.
-     * @param CarServiceInterface $carService
-     */
-    public function __construct(CarServiceInterface $carService)
+    public function __construct(VehicleContext $vehicleContext)
     {
-        $this->carService = $carService;
-    }
-
-    /**
-     * @param $name
-     * @return \TestGame\Vehicles\Entity\CarInterface
-     * @throws \Exception
-     */
-    public function newCar($name)
-    {
-        return $this->carService->create($name);
+        $this->vehicleContext = $vehicleContext;
     }
 
     /**
      * @param $id
-     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+     * @param $type
+     * @return mixed
+     * @throws \TestGame\Vehicles\Exception\VehicleException
      */
-    public function getVehicle($id)
+    public function move($id, $type)
     {
-        return $this->carService->getVehicle($id);
+        $strategy = $this->vehicleContext->selectStrategy($type);
+        return $strategy->moveAction($id);
     }
 
-    public function move($id)
-    {
-        return $this->carService->move($id);
-    }
+
+
+//    /** @var ValueTypeFactory */
+//    private $valueTypeFactory;
+
+//    /** @var CarServiceInterface  */
+//    private $carService;
+
+//    /**
+//     * VehiclesService constructor.
+//     * @param CarServiceInterface $carService
+//     */
+//    public function __construct(ValueTypeFactory $valueTypeFactory)
+//    {
+//        $this->valueTypeFactory = $valueTypeFactory;
+//    }
+//
+//    public function move($id, $type)
+//    {
+//        $typeValue = $this->valueTypeFactory->create($type);
+//
+//        switch ($typeValue) {
+//            case
+//        }
+//
+//
+//        return $this->carService->move($id);
+//    }
+
+//    /**
+//     * @param $name
+//     * @return \TestGame\Vehicles\Entity\CarInterface
+//     * @throws \Exception
+//     */
+//    public function newCar($name)
+//    {
+//        return $this->carService->create($name);
+//    }
+//
+//    /**
+//     * @param $id
+//     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+//     */
+//    public function getVehicle($id)
+//    {
+//        return $this->carService->getVehicle($id);
+//    }
+
+
 }
