@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: andrii
+ * Date: 11.11.18
+ * Time: 23:51
+ */
 
 namespace TestGame\Vehicles\Entity;
 
@@ -25,22 +31,22 @@ interface AbstractEntityInterface
     public function setName($name);
 
     /**
-     * @return float
+     * @return int
      */
-    public function getTankCapacity();
+    public function getFuelLevel();
 
     /**
-     * @param float $tankCapacity
+     * @param int $fuelLevel
      */
-    public function setTankCapacity($tankCapacity);
+    public function setFuelLevel($fuelLevel);
 
     /**
-     * @return float
+     * @return int
      */
-    public function getFuelConsumptionPerClick();
+    public function getStatus();
 
     /**
-     * @param float $fuelConsumptionPerClick
+     * @param int $status
      */
-    public function setFuelConsumptionPerClick($fuelConsumptionPerClick);
+    public function setStatus($status);
 }

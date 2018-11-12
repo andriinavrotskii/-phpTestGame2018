@@ -2,13 +2,13 @@
 
 class VehiclesServiceTest extends \PHPUnit\Framework\TestCase
 {
-    public function testTrueIsTrue()
+    public function testCreateCar()
     {
         $car = $this->createMock(\TestGame\Vehicles\Entity\Car::class);
 
         $carService = $this->createMock(\TestGame\Vehicles\Service\CarServiceInterface::class);
         $carService->expects($this->once())
-            ->method('newCar')
+            ->method('create')
             ->willReturn($car);
 
         $service = new \TestGame\Application\VehiclesService($carService);

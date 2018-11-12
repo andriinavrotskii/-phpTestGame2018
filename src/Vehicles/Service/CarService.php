@@ -2,38 +2,31 @@
 
 namespace TestGame\Vehicles\Service;
 
+use TestGame\Vehicles\Entity\AbstractEntityInterface;
+use TestGame\Vehicles\Entity\CarInterface;
 use TestGame\Vehicles\Factory\CarFactoryInterface;
 use TestGame\Vehicles\Repository\CarRepositoryInterface;
 
-class CarService implements CarServiceInterface
+class CarService extends AbstractService
 {
-    /** @var CarFactoryInterface */
-    private $factory;
-
-    /** @var CarRepositoryInterface */
-    private $repository;
-
-    /**
-     * CarService constructor.
-     * @param CarFactoryInterface $carFactory
-     * @param CarRepositoryInterface $carRepository
-     */
-    public function __construct(CarFactoryInterface $carFactory, CarRepositoryInterface $carRepository)
+    public function __construct(CarFactoryInterface $factory, CarRepositoryInterface $repository)
     {
-        $this->factory = $carFactory;
-        $this->repository = $carRepository;
+        parent::__construct($factory, $repository);
     }
 
     /**
-     * @param $name
-     * @return \TestGame\Vehicles\Entity\CarInterface
-     * @throws \Exception
+     * @param CarInterface $entity
      */
-    public function newCar($name)
+    public function musicOn(CarInterface $entity)
     {
-        $car = $this->factory->create($name);
-        $this->repository->persist($car);
+        $entity->setMusicStatus($entity::MUSIC_ON);
+    }
 
-        return $car;
+    /**
+     * @param CarInterface $entity
+     */
+    public function musicOff(CarInterface $entity)
+    {
+        $entity->setMusicStatus($entity::MUSIC_OFF);
     }
 }

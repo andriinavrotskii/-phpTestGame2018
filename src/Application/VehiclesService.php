@@ -26,6 +26,20 @@ class VehiclesService
      */
     public function newCar($name)
     {
-        return $this->carService->newCar($name);
+        return $this->carService->create($name);
+    }
+
+    /**
+     * @param $id
+     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+     */
+    public function getVehicle($id)
+    {
+        return $this->carService->getVehicle($id);
+    }
+
+    public function move($id)
+    {
+        return $this->carService->move($id);
     }
 }

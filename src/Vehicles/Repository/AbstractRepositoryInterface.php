@@ -2,7 +2,6 @@
 
 namespace TestGame\Vehicles\Repository;
 
-
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
 
 interface AbstractRepositoryInterface

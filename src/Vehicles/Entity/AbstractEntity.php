@@ -3,7 +3,7 @@
 namespace TestGame\Vehicles\Entity;
 
 
-abstract class AbstractEntity implements AbstractEntityInterface
+abstract class AbstractEntity
 {
     /** @var int */
     private $id;
@@ -11,11 +11,11 @@ abstract class AbstractEntity implements AbstractEntityInterface
     /** @var string */
     private $name;
 
-    /** @var float */
-    private $tankCapacity;
+    /** @var int */
+    private $fuelLevel;
 
-    /** @var float */
-    private $fuelConsumptionPerClick;
+    /** @var int */
+    private $status;
 
     /**
      * @return int
@@ -50,34 +50,34 @@ abstract class AbstractEntity implements AbstractEntityInterface
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getTankCapacity()
+    public function getFuelLevel()
     {
-        return $this->tankCapacity;
+        return $this->fuelLevel;
     }
 
     /**
-     * @param float $tankCapacity
+     * @param int $fuelLevel
      */
-    public function setTankCapacity($tankCapacity)
+    public function setFuelLevel($fuelLevel)
     {
-        $this->tankCapacity = $tankCapacity;
+        $this->fuelLevel = $fuelLevel;
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getFuelConsumptionPerClick()
+    public function getStatus()
     {
-        return $this->fuelConsumptionPerClick;
+        return $this->status;
     }
 
     /**
-     * @param float $fuelConsumptionPerClick
+     * @param int $status
      */
-    public function setFuelConsumptionPerClick($fuelConsumptionPerClick)
+    public function setStatus($status)
     {
-        $this->fuelConsumptionPerClick = $fuelConsumptionPerClick;
+        $this->status = $status;
     }
 }

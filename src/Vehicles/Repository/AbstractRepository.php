@@ -5,7 +5,7 @@ namespace TestGame\Vehicles\Repository;
 
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
 
-abstract class AbstractRepository
+abstract class AbstractRepository implements AbstractRepositoryInterface
 {
     public function getById($id)
     {
