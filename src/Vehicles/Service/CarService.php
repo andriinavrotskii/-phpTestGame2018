@@ -2,7 +2,6 @@
 
 namespace TestGame\Vehicles\Service;
 
-use TestGame\Vehicles\Entity\AbstractEntityInterface;
 use TestGame\Vehicles\Entity\CarInterface;
 use TestGame\Vehicles\Factory\CarFactoryInterface;
 use TestGame\Vehicles\Repository\CarRepositoryInterface;

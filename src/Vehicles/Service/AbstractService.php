@@ -6,22 +6,22 @@ namespace TestGame\Vehicles\Service;
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
 use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\Factory\FactoryInterface;
-use TestGame\Vehicles\Repository\AbstractRepositoryInterface;
+use TestGame\Vehicles\Repository\RepositoryInterface;
 
 abstract class AbstractService
 {
     /** @var FactoryInterface */
     protected $factory;
 
-    /** @var AbstractRepositoryInterface */
+    /** @var RepositoryInterface */
     protected $repository;
 
     /**
      * AbstractService constructor.
      * @param FactoryInterface $factory
-     * @param AbstractRepositoryInterface $repository
+     * @param RepositoryInterface $repository
      */
-    public function __construct(FactoryInterface $factory, AbstractRepositoryInterface $repository)
+    public function __construct(FactoryInterface $factory, RepositoryInterface $repository)
     {
         $this->factory = $factory;
         $this->repository = $repository;

@@ -5,8 +5,6 @@ namespace TestGame\Vehicles\Strategy;
 
 use DI\Container;
 use TestGame\Vehicles\Exception\VehicleException;
-use TestGame\Vehicles\Service\CarService;
-use TestGame\Vehicles\Service\TruckService;
 
 class VehicleContext
 {

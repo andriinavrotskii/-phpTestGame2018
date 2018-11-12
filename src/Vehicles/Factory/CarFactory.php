@@ -11,7 +11,6 @@ class CarFactory implements FactoryInterface
     /**
      * @param string $name
      * @return CarInterface
-     * @throws \Exception
      */
     public function create($name)
     {

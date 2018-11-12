@@ -1,11 +1,11 @@
 <?php
 
-namespace TestGame\Vehicles\Repository;
-
+namespace TestGame\Infrastructure\Repository;
 
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
+use TestGame\Vehicles\Repository\RepositoryInterface;
 
-abstract class AbstractRepository implements AbstractRepositoryInterface
+abstract class AbstractRepository implements RepositoryInterface
 {
     public function getById($id)
     {

@@ -2,6 +2,6 @@
 
 namespace TestGame\Vehicles\Repository;
 
-interface TruckRepositoryInterface extends AbstractRepositoryInterface
+interface TruckRepositoryInterface extends RepositoryInterface
 {
 }

@@ -4,7 +4,7 @@ namespace TestGame\Vehicles\Repository;
 
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
 
-interface AbstractRepositoryInterface
+interface RepositoryInterface
 {
     /**
      * @param int $id

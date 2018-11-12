@@ -3,7 +3,7 @@
 namespace TestGame\Vehicles\Repository;
 
 
-interface CarRepositoryInterface extends AbstractRepositoryInterface
+interface CarRepositoryInterface extends RepositoryInterface
 {
 
 }
