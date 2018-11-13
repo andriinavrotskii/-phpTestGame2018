@@ -2,6 +2,7 @@
 
 namespace TestGame\Application;
 
+use TestGame\Vehicles\Factory\VehicleAbstractFactory;
 use TestGame\Vehicles\Factory\VehicleTypeFactory;
 use TestGame\Vehicles\Strategy\VehicleActionContext;
 use TestGame\Vehicles\Strategy\VehicleCreateContext;
@@ -9,8 +10,8 @@ use TestGame\Vehicles\Strategy\VehicleExtractContext;
 
 class VehiclesService
 {
-    /** @var VehicleCreateContext */
-    private $vehicleCreateContext;
+    /** @var VehicleAbstractFactory */
+    private $vehicleAbstractFactory;
 
     /** @var VehicleActionContext */
     private $vehicleActionContext;
@@ -21,13 +22,20 @@ class VehiclesService
     /** @var VehicleTypeFactory */
     private $vehicleTypeFactory;
 
+    /**
+     * VehiclesService constructor.
+     * @param VehicleAbstractFactory $vehicleAbstractFactory
+     * @param VehicleActionContext $vehicleActionContext
+     * @param VehicleExtractContext $vehicleExtractContext
+     * @param VehicleTypeFactory $vehicleTypeFactory
+     */
     public function __construct(
-        VehicleCreateContext $vehicleCreateContext,
+        VehicleAbstractFactory $vehicleAbstractFactory,
         VehicleActionContext $vehicleActionContext,
         VehicleExtractContext $vehicleExtractContext,
         VehicleTypeFactory $vehicleTypeFactory
     ) {
-        $this->vehicleCreateContext = $vehicleCreateContext;
+        $this->vehicleAbstractFactory = $vehicleAbstractFactory;
         $this->vehicleActionContext = $vehicleActionContext;
         $this->vehicleExtractContext = $vehicleExtractContext;
         $this->vehicleTypeFactory = $vehicleTypeFactory;
@@ -35,12 +43,13 @@ class VehiclesService
 
     /**
      * @param $type
+     * @param $name
      * @throws \TestGame\Vehicles\Exception\VehicleException
      */
-    public function createVehicle($type)
+    public function createVehicle($type, $name)
     {
         $type = $this->vehicleTypeFactory->create($type);
-        $entity = $this->vehicleCreateContext->selectStrategy($type)->create($type);
+        $entity = $this->vehicleAbstractFactory->create($type, $name);
         $entity->getRepository()->persist($entity);
     }
 

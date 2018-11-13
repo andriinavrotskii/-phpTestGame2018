@@ -1,26 +1,35 @@
 <?php
 
-namespace TestGame\Vehicles\Strategy;
+namespace TestGame\Vehicles\Factory;
 
-use TestGame\Infrastructure\Adapters\DiContainer;
+use Psr\Container\ContainerInterface;
 use TestGame\Vehicles\Exception\VehicleException;
-use TestGame\Vehicles\Factory\CarFactoryInterface;
-use TestGame\Vehicles\Factory\FactoryInterface;
-use TestGame\Vehicles\Factory\TruckFactoryInterface;
 use TestGame\Vehicles\ValueObjects\VehicleType;
 
-class VehicleCreateContext
+class VehicleAbstractFactory
 {
-    /** @var DiContainer  */
+    /** @var ContainerInterface  */
     private $container;
 
     /**
      * VehicleContext constructor.
-     * @param DiContainer $container
+     * @param ContainerInterface $container
      */
-    public function __construct(DiContainer $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * @param VehicleType $type
+     * @param $name
+     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+     * @throws VehicleException
+     */
+    public function create(VehicleType $type, $name)
+    {
+        return $this->selectFactory($type)
+            ->create($name);
     }
 
     /**
@@ -28,7 +37,7 @@ class VehicleCreateContext
      * @return FactoryInterface
      * @throws VehicleException
      */
-    public function selectStrategy(VehicleType $type)
+    private function selectFactory(VehicleType $type)
     {
         try {
             switch (true) {
