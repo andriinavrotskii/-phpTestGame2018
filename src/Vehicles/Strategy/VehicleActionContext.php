@@ -24,23 +24,16 @@ class VehicleActionContext
     /**
      * @param VehicleType $type
      * @return VehicleStrategyInterface
-     * @throws VehicleException
      */
     public function selectStrategy(VehicleType $type)
     {
-        try {
-            switch (true) {
-                case $type->isCar():
-                    return $this->container->get(CarStrategy::class);
-                    break;
-                case $type->isTruck():
-                    return $this->container->get(TruckStrategy::class);
-                    break;
-                default:
-                    throw new VehicleException();
-            }
-        } catch (\Exception $exception) {
-            throw new VehicleException('Unexist Vehicle type');
+        switch (true) {
+            case $type->isCar():
+                return $this->container->get(CarStrategy::class);
+                break;
+            case $type->isTruck():
+                return $this->container->get(TruckStrategy::class);
+                break;
         }
     }
 }

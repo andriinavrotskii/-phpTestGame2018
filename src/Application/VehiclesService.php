@@ -3,42 +3,41 @@
 namespace TestGame\Application;
 
 use TestGame\Vehicles\Factory\VehicleAbstractFactory;
+use TestGame\Vehicles\Factory\VehicleRepositoryAbstractFactory;
 use TestGame\Vehicles\Factory\VehicleTypeFactory;
 use TestGame\Vehicles\Strategy\VehicleActionContext;
-use TestGame\Vehicles\Strategy\VehicleCreateContext;
-use TestGame\Vehicles\Strategy\VehicleExtractContext;
 
 class VehiclesService
 {
     /** @var VehicleAbstractFactory */
-    private $vehicleAbstractFactory;
+    private $abstractFactory;
 
     /** @var VehicleActionContext */
-    private $vehicleActionContext;
+    private $actionContext;
 
-    /** @var VehicleExtractContext */
-    private $vehicleExtractContext;
+    /** @var VehicleRepositoryAbstractFactory */
+    private $repositoryAbstractFactory;
 
     /** @var VehicleTypeFactory */
-    private $vehicleTypeFactory;
+    private $typeFactory;
 
     /**
      * VehiclesService constructor.
-     * @param VehicleAbstractFactory $vehicleAbstractFactory
-     * @param VehicleActionContext $vehicleActionContext
-     * @param VehicleExtractContext $vehicleExtractContext
-     * @param VehicleTypeFactory $vehicleTypeFactory
+     * @param VehicleAbstractFactory $abstractFactory
+     * @param VehicleRepositoryAbstractFactory $repositoryAbstractFactory
+     * @param VehicleActionContext $actionContext
+     * @param VehicleTypeFactory $typeFactory
      */
     public function __construct(
-        VehicleAbstractFactory $vehicleAbstractFactory,
-        VehicleActionContext $vehicleActionContext,
-        VehicleExtractContext $vehicleExtractContext,
-        VehicleTypeFactory $vehicleTypeFactory
+        VehicleAbstractFactory $abstractFactory,
+        VehicleRepositoryAbstractFactory $repositoryAbstractFactory,
+        VehicleActionContext $actionContext,
+        VehicleTypeFactory $typeFactory
     ) {
-        $this->vehicleAbstractFactory = $vehicleAbstractFactory;
-        $this->vehicleActionContext = $vehicleActionContext;
-        $this->vehicleExtractContext = $vehicleExtractContext;
-        $this->vehicleTypeFactory = $vehicleTypeFactory;
+        $this->abstractFactory = $abstractFactory;
+        $this->repositoryAbstractFactory = $repositoryAbstractFactory;
+        $this->actionContext = $actionContext;
+        $this->typeFactory = $typeFactory;
     }
 
     /**
@@ -48,8 +47,8 @@ class VehiclesService
      */
     public function createVehicle($type, $name)
     {
-        $type = $this->vehicleTypeFactory->create($type);
-        $entity = $this->vehicleAbstractFactory->create($type, $name);
+        $type = $this->typeFactory->create($type);
+        $entity = $this->abstractFactory->create($type, $name);
         $entity->getRepository()->persist($entity);
     }
 
@@ -61,8 +60,10 @@ class VehiclesService
      */
     public function getVehicle($id, $type)
     {
-        $type = $this->vehicleTypeFactory->create($type);
-        return $this->vehicleExtractContext->selectStrategy($type)->getById($id);
+        $type = $this->typeFactory->create($type);
+        return $this->repositoryAbstractFactory
+            ->create($type)
+            ->getById($id);
     }
     /**
      * @param $id
@@ -72,8 +73,8 @@ class VehiclesService
      */
     public function moveVehicle($id, $type)
     {
-        $type = $this->vehicleTypeFactory->create($type);
-        $strategy = $this->vehicleActionContext->selectStrategy($type);
+        $type = $this->typeFactory->create($type);
+        $strategy = $this->actionContext->selectStrategy($type);
         return $strategy->moveAction($id);
     }
 }

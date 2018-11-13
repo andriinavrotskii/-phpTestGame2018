@@ -3,9 +3,12 @@
 namespace TestGame\Vehicles\Factory;
 
 use Psr\Container\ContainerInterface;
+use TestGame\Vehicles\Repository\CarRepositoryInterface;
+use TestGame\Vehicles\Repository\RepositoryInterface;
+use TestGame\Vehicles\Repository\TruckRepositoryInterface;
 use TestGame\Vehicles\ValueObjects\VehicleType;
 
-class VehicleAbstractFactory
+class VehicleRepositoryAbstractFactory
 {
     /** @var ContainerInterface  */
     private $container;
@@ -21,28 +24,28 @@ class VehicleAbstractFactory
 
     /**
      * @param VehicleType $type
-     * @param $name
-     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+     * @return RepositoryInterface
      */
-    public function create(VehicleType $type, $name)
+    public function create(VehicleType $type)
     {
-        return $this->selectFactory($type)
-            ->create($name);
+        return $this->selectRepository($type);
     }
 
     /**
      * @param VehicleType $type
-     * @return FactoryInterface
+     * @return RepositoryInterface
      */
-    private function selectFactory(VehicleType $type)
+    public function selectRepository(VehicleType $type)
     {
         switch (true) {
             case $type->isCar():
-                return $this->container->get(CarFactoryInterface::class);
+                return $this->container->get(CarRepositoryInterface::class);
                 break;
             case $type->isTruck():
-                return $this->container->get(TruckFactoryInterface::class);
+                return $this->container->get(TruckRepositoryInterface::class);
                 break;
         }
     }
+
+
 }
