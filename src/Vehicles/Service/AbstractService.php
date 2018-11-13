@@ -8,7 +8,7 @@ use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\Factory\FactoryInterface;
 use TestGame\Vehicles\Repository\RepositoryInterface;
 
-abstract class AbstractService
+abstract class AbstractService implements AbstractServiceInterface
 {
     /** @var FactoryInterface */
     protected $factory;
@@ -68,6 +68,6 @@ abstract class AbstractService
         if ($entity->getFuelLevel() == 0) {
             throw new VehicleException('Out of Fuel');
         }
-        $entity->setFuelLevel($entity->getFuelLevel() - $entity->getFuelConsumptionPerAct());
+        $entity->setFuelLevel($entity->getFuelLevel() - $entity::FUEL_CONSUMPTION);
     }
 }

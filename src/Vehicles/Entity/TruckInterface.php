@@ -2,8 +2,12 @@
 
 namespace TestGame\Vehicles\Entity;
 
+use TestGame\Vehicles\Repository\TruckRepositoryInterface;
+
 interface TruckInterface extends AbstractEntityInterface
 {
+    const REPOSITORY_CLASS = TruckRepositoryInterface::class;
+
     const TANK_MAX_CAPACITY = 600;
     const TANK_MIN_CAPACITY = 0;
     const FUEL_CONSUMPTION = 5;

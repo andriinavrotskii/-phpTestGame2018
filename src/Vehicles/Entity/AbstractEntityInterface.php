@@ -8,8 +8,15 @@
 
 namespace TestGame\Vehicles\Entity;
 
+use TestGame\Vehicles\Repository\RepositoryInterface;
+
 interface AbstractEntityInterface
 {
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository();
+
     /**
      * @return int
      */

@@ -6,7 +6,7 @@ use TestGame\Vehicles\Entity\CarInterface;
 use TestGame\Vehicles\Factory\CarFactoryInterface;
 use TestGame\Vehicles\Repository\CarRepositoryInterface;
 
-class CarService extends AbstractService
+class CarService extends AbstractService implements CarServiceInterface
 {
     public function __construct(CarFactoryInterface $factory, CarRepositoryInterface $repository)
     {

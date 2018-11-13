@@ -2,79 +2,69 @@
 
 namespace TestGame\Application;
 
-
-use TestGame\Vehicles\Service\CarServiceInterface;
-use TestGame\Vehicles\Strategy\VehicleContext;
+use TestGame\Vehicles\Factory\VehicleTypeFactory;
+use TestGame\Vehicles\Strategy\VehicleActionContext;
+use TestGame\Vehicles\Strategy\VehicleCreateContext;
+use TestGame\Vehicles\Strategy\VehicleExtractContext;
 
 class VehiclesService
 {
-    /** @var VehicleContext */
-    private $vehicleContext;
+    /** @var VehicleCreateContext */
+    private $vehicleCreateContext;
 
-    public function __construct(VehicleContext $vehicleContext)
-    {
-        $this->vehicleContext = $vehicleContext;
+    /** @var VehicleActionContext */
+    private $vehicleActionContext;
+
+    /** @var VehicleExtractContext */
+    private $vehicleExtractContext;
+
+    /** @var VehicleTypeFactory */
+    private $vehicleTypeFactory;
+
+    public function __construct(
+        VehicleCreateContext $vehicleCreateContext,
+        VehicleActionContext $vehicleActionContext,
+        VehicleExtractContext $vehicleExtractContext,
+        VehicleTypeFactory $vehicleTypeFactory
+    ) {
+        $this->vehicleCreateContext = $vehicleCreateContext;
+        $this->vehicleActionContext = $vehicleActionContext;
+        $this->vehicleExtractContext = $vehicleExtractContext;
+        $this->vehicleTypeFactory = $vehicleTypeFactory;
     }
 
+    /**
+     * @param $type
+     * @throws \TestGame\Vehicles\Exception\VehicleException
+     */
+    public function createVehicle($type)
+    {
+        $type = $this->vehicleTypeFactory->create($type);
+        $entity = $this->vehicleCreateContext->selectStrategy($type)->create($type);
+        $entity->getRepository()->persist($entity);
+    }
+
+    /**
+     * @param $id
+     * @param $type
+     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
+     * @throws \TestGame\Vehicles\Exception\VehicleException
+     */
+    public function getVehicle($id, $type)
+    {
+        $type = $this->vehicleTypeFactory->create($type);
+        return $this->vehicleExtractContext->selectStrategy($type)->getById($id);
+    }
     /**
      * @param $id
      * @param $type
      * @return mixed
      * @throws \TestGame\Vehicles\Exception\VehicleException
      */
-    public function move($id, $type)
+    public function moveVehicle($id, $type)
     {
-        $strategy = $this->vehicleContext->selectStrategy($type);
+        $type = $this->vehicleTypeFactory->create($type);
+        $strategy = $this->vehicleActionContext->selectStrategy($type);
         return $strategy->moveAction($id);
     }
-
-
-
-//    /** @var ValueTypeFactory */
-//    private $valueTypeFactory;
-
-//    /** @var CarServiceInterface  */
-//    private $carService;
-
-//    /**
-//     * VehiclesService constructor.
-//     * @param CarServiceInterface $carService
-//     */
-//    public function __construct(ValueTypeFactory $valueTypeFactory)
-//    {
-//        $this->valueTypeFactory = $valueTypeFactory;
-//    }
-//
-//    public function move($id, $type)
-//    {
-//        $typeValue = $this->valueTypeFactory->create($type);
-//
-//        switch ($typeValue) {
-//            case
-//        }
-//
-//
-//        return $this->carService->move($id);
-//    }
-
-//    /**
-//     * @param $name
-//     * @return \TestGame\Vehicles\Entity\CarInterface
-//     * @throws \Exception
-//     */
-//    public function newCar($name)
-//    {
-//        return $this->carService->create($name);
-//    }
-//
-//    /**
-//     * @param $id
-//     * @return \TestGame\Vehicles\Entity\AbstractEntityInterface
-//     */
-//    public function getVehicle($id)
-//    {
-//        return $this->carService->getVehicle($id);
-//    }
-
-
 }

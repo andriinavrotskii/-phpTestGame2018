@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andrii
- * Date: 11.11.18
- * Time: 1:12
- */
 
 namespace TestGame\Vehicles\Factory;
 
-use TestGame\Vehicles\Entity\CarInterface;
+use TestGame\Vehicles\Entity\AbstractEntityInterface;
 
 interface FactoryInterface
 {
     /**
      * @param string $name
-     * @return CarInterface
-     * @throws \Exception
+     * @return AbstractEntityInterface
      */
     public function create($name);
 }

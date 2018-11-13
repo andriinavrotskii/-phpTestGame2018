@@ -3,13 +3,14 @@
 namespace TestGame\Vehicles\Factory;
 
 
+use TestGame\Vehicles\Entity\AbstractEntityInterface;
 use TestGame\Vehicles\Entity\Truck;
 
-class TruckFactory implements FactoryInterface
+class TruckFactory implements FactoryInterface, TruckFactoryInterface
 {
     /**
      * @param string $name
-     * @return \TestGame\Vehicles\Entity\CarInterface|Truck
+     * @return AbstractEntityInterface
      */
     public function create($name)
     {

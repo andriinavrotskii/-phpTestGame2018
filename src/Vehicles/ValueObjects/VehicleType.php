@@ -24,6 +24,30 @@ class VehicleType
     }
 
     /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTruck()
+    {
+        return $this->type == self::TRUCK;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCar()
+    {
+        return $this->type == self::CAR;
+    }
+
+    /**
      * @param $type
      * @throws VehicleException
      */

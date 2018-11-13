@@ -2,6 +2,7 @@
 
 namespace TestGame\Vehicles\Entity;
 
+use TestGame\Vehicles\Repository\RepositoryInterface;
 
 abstract class AbstractEntity
 {
@@ -16,6 +17,15 @@ abstract class AbstractEntity
 
     /** @var int */
     private $status;
+
+    /**
+     * @return RepositoryInterface
+     */
+    public function getRepository()
+    {
+        $class = self::REPOSITORY_CLASS;
+        return new $class;
+    }
 
     /**
      * @return int

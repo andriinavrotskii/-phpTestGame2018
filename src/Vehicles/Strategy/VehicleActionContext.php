@@ -2,22 +2,19 @@
 
 namespace TestGame\Vehicles\Strategy;
 
-
 use DI\Container;
 use TestGame\Infrastructure\Adapters\DiContainer;
 use TestGame\Vehicles\Exception\VehicleException;
+use TestGame\Vehicles\ValueObjects\VehicleType;
 
-class VehicleContext
+class VehicleActionContext
 {
-    const TRUCK = 'truck';
-    const CAR = 'car';
-
     /** @var Container  */
     private $container;
 
     /**
      * VehicleContext constructor.
-     * @param Container $container
+     * @param DiContainer $container
      */
     public function __construct(DiContainer $container)
     {
@@ -25,18 +22,18 @@ class VehicleContext
     }
 
     /**
-     * @param $type
+     * @param VehicleType $type
      * @return VehicleStrategyInterface
      * @throws VehicleException
      */
-    public function selectStrategy($type)
+    public function selectStrategy(VehicleType $type)
     {
         try {
-            switch ($type) {
-                case self::CAR:
+            switch (true) {
+                case $type->isCar():
                     return $this->container->get(CarStrategy::class);
                     break;
-                case self::TRUCK:
+                case $type->isTruck():
                     return $this->container->get(TruckStrategy::class);
                     break;
                 default:
