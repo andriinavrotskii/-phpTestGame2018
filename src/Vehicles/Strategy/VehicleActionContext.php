@@ -3,6 +3,7 @@
 namespace TestGame\Vehicles\Strategy;
 
 use DI\Container;
+use Psr\Container\ContainerInterface;
 use TestGame\Infrastructure\Adapters\DiContainer;
 use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\ValueObjects\VehicleType;
@@ -14,9 +15,9 @@ class VehicleActionContext
 
     /**
      * VehicleContext constructor.
-     * @param DiContainer $container
+     * @param ContainerInterface $container
      */
-    public function __construct(DiContainer $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }

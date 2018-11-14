@@ -5,11 +5,11 @@ namespace TestGame\Vehicles\Strategy;
 use TestGame\Vehicles\Entity\TruckInterface;
 use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\Repository\TruckRepositoryInterface;
-use TestGame\Vehicles\Service\TruckService;
+use TestGame\Vehicles\Service\TruckServiceInterface;
 
 class TruckStrategy implements VehicleStrategyInterface
 {
-    /** @var TruckService  */
+    /** @var TruckServiceInterface  */
     private $service;
 
     /** @var  */
@@ -17,10 +17,10 @@ class TruckStrategy implements VehicleStrategyInterface
 
     /**
      * CarStrategy constructor.
-     * @param TruckService $service
+     * @param TruckServiceInterface $service
      * @param TruckRepositoryInterface $repository
      */
-    public function __construct(TruckService $service, TruckRepositoryInterface $repository)
+    public function __construct(TruckServiceInterface $service, TruckRepositoryInterface $repository)
     {
         $this->service = $service;
         $this->repository = $repository;
