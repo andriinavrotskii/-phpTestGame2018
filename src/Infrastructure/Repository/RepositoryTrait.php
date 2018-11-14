@@ -3,9 +3,8 @@
 namespace TestGame\Infrastructure\Repository;
 
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
-use TestGame\Vehicles\Repository\RepositoryInterface;
 
-abstract class AbstractRepository implements RepositoryInterface
+trait RepositoryTrait
 {
     public function getById($id)
     {
@@ -21,5 +20,4 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         // TODO: Implement persist() method.
     }
-
 }

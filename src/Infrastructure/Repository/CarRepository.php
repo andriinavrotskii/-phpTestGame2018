@@ -4,7 +4,7 @@ namespace TestGame\Infrastructure\Repository;
 
 use TestGame\Vehicles\Repository\CarRepositoryInterface;
 
-class CarRepository extends AbstractRepository implements CarRepositoryInterface
+class CarRepository implements CarRepositoryInterface
 {
-
+    use RepositoryTrait;
 }
