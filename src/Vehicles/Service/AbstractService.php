@@ -3,6 +3,7 @@
 namespace TestGame\Vehicles\Service;
 
 
+use Psr\Log\LoggerInterface;
 use TestGame\Vehicles\Entity\AbstractEntityInterface;
 use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\Factory\FactoryInterface;
@@ -10,6 +11,9 @@ use TestGame\Vehicles\Repository\RepositoryInterface;
 
 abstract class AbstractService implements AbstractServiceInterface
 {
+    /** @var LoggerInterface */
+    protected $logger;
+
     /** @var FactoryInterface */
     protected $factory;
 
@@ -18,11 +22,13 @@ abstract class AbstractService implements AbstractServiceInterface
 
     /**
      * AbstractService constructor.
+     * @param LoggerInterface $logger
      * @param FactoryInterface $factory
      * @param RepositoryInterface $repository
      */
-    public function __construct(FactoryInterface $factory, RepositoryInterface $repository)
+    public function __construct(LoggerInterface $logger, FactoryInterface $factory, RepositoryInterface $repository)
     {
+        $this->logger = $logger;
         $this->factory = $factory;
         $this->repository = $repository;
     }
@@ -36,6 +42,7 @@ abstract class AbstractService implements AbstractServiceInterface
     {
         $entity = $this->factory->create($name);
         $this->repository->persist($entity);
+        $this->logger->info("{$name} created");
 
         return $entity;
     }
@@ -57,6 +64,7 @@ abstract class AbstractService implements AbstractServiceInterface
     {
         $this->engineWork($entity);
         $this->repository->persist($entity);
+        $this->logger->info("The {$entity->getName()} is moved");
     }
 
     /**
@@ -66,6 +74,7 @@ abstract class AbstractService implements AbstractServiceInterface
     protected function engineWork(AbstractEntityInterface $entity)
     {
         if ($entity->getFuelLevel() == 0) {
+            $this->logger->alert("The {$entity->getName()} run out of fuel");
             throw new VehicleException('Out of Fuel');
         }
         $entity->setFuelLevel($entity->getFuelLevel() - $entity::FUEL_CONSUMPTION);

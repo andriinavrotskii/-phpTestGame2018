@@ -2,7 +2,6 @@
 
 namespace TestGame\Vehicles\Strategy;
 
-
 use TestGame\Vehicles\Entity\CarInterface;
 use TestGame\Vehicles\Exception\VehicleException;
 use TestGame\Vehicles\Repository\CarRepositoryInterface;

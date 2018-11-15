@@ -8,6 +8,7 @@
     "phpunit/phpunit": "^7.4"
   },
   "require": {
-    "php-di/php-di": "^6.0"
+    "php-di/php-di": "^6.0",
+    "psr/log": "^1.0"
   }
 }
